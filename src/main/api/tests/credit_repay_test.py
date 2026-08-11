@@ -25,7 +25,7 @@ class TestCreditRepay:
     def test_credit_repay_new(self, api_manager: ApiManager, credit_repay_request: CreditRepayRequester, create_credit_user_request: CreateUserCreditRequest, db_session: Session):
 
         response = api_manager.user_steps.credit_repay(credit_repay_request, create_credit_user_request)
-        assert credit_repay_request.creditId == response.creditId
+        assert credit_repay_request.creditId == response.creditId, "Проверка совпадает"
 
         credit_from_db = Credit.get_credit_account_by_id(db_session, response.creditId)
         assert credit_from_db.id == response.creditId
