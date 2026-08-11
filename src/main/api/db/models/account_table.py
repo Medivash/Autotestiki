@@ -5,7 +5,7 @@ class Account(Base):
     __tablename__="account"
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
-    numbers = Column(String, unique=True, nullable=False)
+    number = Column(String, unique=True, nullable=False)
     balance =  Column(Float, nullable=False)
 
 def __repr__(self):

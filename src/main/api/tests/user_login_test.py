@@ -1,5 +1,6 @@
 import pytest
 
+from src.main.api.classes.api_manager import ApiManager
 from src.main.api.fixtures.api_fixture import api_manager
 from src.main.api.model.create_user_request import CreateUserRequest
 from src.main.api.model.login_user_request import LoginUserRequest
@@ -11,15 +12,19 @@ from src.main.api.specs.response_specs import ResponseSpecs
 
 @pytest.mark.api
 class TestUserLogin:
-    def test_login_admin(self, api_manager):
+    def test_login_admin(self, api_manager: ApiManager):
         login_user_request = LoginUserRequest(username="admin", password="123456")
         response = api_manager.admin_steps.login_user(login_user_request)
 
         assert login_user_request.username == response.user.username
         assert  response.user.role ==  "ROLE_ADMIN"
 
-    def test_login_user(self, api_manager, create_user_request):
+    def test_login_user(self, api_manager: ApiManager, create_user_request: CreateUserRequest):
         response = api_manager.admin_steps.login_user(create_user_request)
 
         assert create_user_request.username == response.user.username
         assert response.user.role == "ROLE_USER"
+
+    def test_login_admin_invalid(self, api_manager: ApiManager):
+        login_user_request = LoginUserRequest(username="admin1", password="123456")
+        api_manager.admin_steps.login_user_invalid(login_user_request)
