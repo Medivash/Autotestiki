@@ -9,7 +9,9 @@ from typing import Optional, Type
 from src.main.api.model.create_bank_account_response import CreateBankAccountResponse
 from src.main.api.model.create_user_request import CreateUserRequest
 from src.main.api.model.create_user_response import CreateUserResponse
+from src.main.api.model.credit_repay_request import CreditRepayRequest
 from src.main.api.model.credit_repay_response import CreditRepayResponse
+from src.main.api.model.credit_request import CreditRequest
 from src.main.api.model.credit_response import CreditResponse
 from src.main.api.model.login_user_request import LoginUserRequest
 from src.main.api.model.login_user_response import LoginUserResponse
@@ -69,6 +71,18 @@ class Endpoint(Enum):
         request_model=None,
         url="/credit/repay",
         response_model=CreditRepayResponse
+    )
+
+    CREDIT_REPAY = EndpointConfiguration(
+        request_model=CreditRepayRequest,
+        url="/credit/repay",
+        response_model=CreditRepayResponse
+    )
+
+    CREDIT = EndpointConfiguration(
+        request_model=CreditRequest,
+        url="/credit/request",
+        response_model=CreditResponse
     )
 
 
